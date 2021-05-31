@@ -1,10 +1,3 @@
-<?php
-session_start();
-require 'function.php';
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,7 +76,7 @@ require 'function.php';
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Tagihan Bulanan
+                Tagihan Pengguna
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -100,32 +93,6 @@ require 'function.php';
                     </div>
                 </div>
             </li>
-
-            <?php if($_SESSION['customer']['role_id'] != 3):?>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Tagihan Bulanan
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-wallet"></i>
-                    <span>Tagihan Pengguna</span>
-                </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="payment.php">Data Tagihan</a>
-                        <a class="collapse-item" href="paylog.php">Cetak Tagihan Periode</a>
-                    </div>
-                </div>
-            </li>
-
-            <?php endif;?>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

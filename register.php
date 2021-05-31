@@ -1,3 +1,19 @@
+<?php
+require "function.php";
+
+if(isset($_POST['btn_register'])) {
+    
+    if(registeruser($_POST) > 0 ){
+        echo "<script> alert('Berhasil');</script>";
+        echo "<script> location='login.php'; </script>";
+    }else {
+        echo mysqli_error($conn);
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login</title>
+    <title>Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -40,48 +56,50 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Pendaftaran</h1>
                                     </div>
-                                    <form class="user">
+
+                                    <form class="user" action="" method="post">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="email" name="email"
-                                                placeholder="Masukkan alamat E-mail Anda">
+                                                placeholder="Masukkan alamat E-mail Anda" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="nama" name="nama"
-                                                placeholder="Masukkan Nama Keluarga Anda">
+                                                placeholder="Masukkan Nama Keluarga Anda" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="number" class="form-control form-control-user"
                                                 id="phone" name="phone"
-                                                placeholder="Masukkan Nomor Telepon Anda">
+                                                placeholder="Masukkan Nomor Telepon Anda" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="alamat" name="alamat"
-                                                placeholder="Masukkan Alamat Rumah Anda">
+                                                placeholder="Masukkan Alamat Rumah Anda" required>
                                         </div>
                                             <div class="row">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <input type="password" class="form-control form-control-user"
                                                     id="password1" name="password1" 
-                                                    placeholder="Masukan Password Anda">
+                                                    placeholder="Masukan Password Anda" required>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
                                                     <input type="password" class="form-control form-control-user"
                                                     id="password2" name="password2" 
-                                                    placeholder="Masukan Ulang Password Anda">
+                                                    placeholder="Masukan Ulang Password Anda" required>
                                                 </div>
                                             </div>
                                             </div>
-                                        <a href="#" class="btn btn-success btn-user btn-block">
+                                        <button type="submit" name="btn_register" class="btn btn-success btn-user btn-block">
                                             Daftar
-                                        </a>
+                                        </button>
                                         <hr>
                                     </form>
+
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="login.php">Kembali ke Halaman Sebelumnya</a>
