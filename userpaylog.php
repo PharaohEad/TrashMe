@@ -1,3 +1,10 @@
+<?php
+session_start();
+require 'function.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +88,7 @@
 
                     <!-- Page Heading -->
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Sejarah Pembayaran</h1>
+                    <h1 class="h3 mb-2 text-gray-800">List Log Pembayaran User</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -91,37 +98,47 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Tanggal Bayar</th>
+                                            <th>Nama</th>
+                                            <th>Tanggal Dibayar</th>
+                                            <th>Keterangan Pembayaran</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>Desember</td>
+                                            <td>Bpk. Sanusi </td>
+                                            <td>Januari </td>
+                                            <td>Sudah Dibayar </td>
                                             <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
+                                                <a href="userdetailpayment.php" class="btn btn-info btn-sm">Detail</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Bpk. xxxx </td>
+                                            <td>xxxx </td>
+                                            <td>HUTANG</td>
+                                            <td>
+                                                <a href="userdetailpayment.php" class="btn btn-info btn-sm">Detail</a>
                                             </td>
                                         </tr>
                                         <tr>
                                         <td>1</td>
-                                            <td>Asal-asalan</td>
+                                            <td>Bpk. xxxx </td>
+                                            <td>xxxx </td>
+                                            <td>HUTANG</td>
                                             <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
+                                                <a href="userdetailpayment.php" class="btn btn-info btn-sm">Detail</a>
                                             </td>
                                         </tr>
                                         <tr>
                                         <td>1</td>
-                                            <td>Asal-asalan</td>
+                                            <td>Bpk. xxxx </td>
+                                            <td>xxxx </td>
+                                            <td>HUTANG</td>
                                             <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
+                                                <a href="userdetailpayment.php" class="btn btn-info btn-sm">Detail</a>
                                             </td>
                                         </tr>
                                     </tbody>

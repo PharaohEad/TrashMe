@@ -1,3 +1,10 @@
+<?php
+session_start();
+require 'function.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,54 +87,25 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Sejarah Pembayaran</h1>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Tanggal Bayar</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Desember</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                  
-                                </table>
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                        <form class="">
+                                        <div class="form-group">
+                                            <label for="tagihan">Tagihan Bulanan</label>
+                                            <input type="number" class="form-control form-control-user"
+                                                id="tagihan" name="tagihan" value="150000" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Nama Anda</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="sumanto" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="month">Bulan ke-</label>
+                                            <input type="text" class="form-control" id="month" name="month" value="Desember" readonly>
+                                        </div>
+                                        <button class="btn btn-success btn-md">Cetak</button>
+                                        <a href="paylog.php" class="btn btn-info btn-md">Kembali</a>
+                                    </form>
                         </div>
                     </div>
 

@@ -1,3 +1,47 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['customer'])){
+    header('Location: login.php');
+    exit;
+}
+
+require 'function.php';
+
+// Select Petugas
+$petugas = petugas("SELECT * FROM users WHERE role_id = '2' ");
+
+if(isset($_POST['request'])){
+    // Cek Apakah User Sudah Membayar Bulanan
+    $iduser = $_SESSION['customer']['id'];
+
+    $hasil = query("SELECT * FROM monthly_bill WHERE id_users = '$iduser' ");
+
+    $date_request = date('m-Y', strtotime($_POST['request']));
+    $bill = date('m-Y', strtotime($hasil['date']));
+
+    if($iduser != $hasil['id_users']){
+        echo "<script>alert('Silahkan Lakukan Pembayaran');</script>";
+        echo "<script>location='payment.php';</script>";
+    }else if ($date_request != $bill){
+        echo "<script>alert('Request Hanya Dapat Dilakukan Dalam 30 Hari Kedepan Di Bulan Yang Sama');</script>";
+        echo "<script>location='request.php';</script>";
+    }else {
+        $date = date('Y-m-d', strtotime($_POST['request']));
+        $besok = date('Y-m-d', strtotime($date . "+1 days"));
+        $tipesampah = $_POST['tipesampah'];
+        $idpetugas = $_POST['staffname'];
+
+        mysqli_query($conn, "INSERT INTO pickup_process VALUE ('','$iduser','$date','$besok','requested', '$tipesampah', '$idpetugas') ");
+
+        echo "<script>alert('Berhasil Request');</script>";
+        echo "<script>location='requested.php';</script>";
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,88 +72,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-trash"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Trash Me</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Proses Request
-            </div>
-
-            <!-- Nav Item - Pages Anjay Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-fw fa-file-invoice"></i>
-                    <span>Menu Request</span>
-                </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="request.php">Request Angkut</a>
-                        <a class="collapse-item" href="requested.php">Yang Direquest</a>
-                    </div>
-                </div>
-            </li>
-            
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Tagihan Bulanan
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-wallet"></i>
-                    <span>Menu Pembayaran</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="payment.php">Bayar Tagihan Bulanan</a>
-                        <a class="collapse-item" href="paylog.php">Cetak Bukti Pembayaran</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Nav Item - Logout -->
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">
-                <i class="fas fa-sign-out-alt fa-fw"></i>
-                    <span>Logout</span></a>
-            </li>
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        <?php include 'sidebar.php'; ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -163,7 +126,7 @@
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-4">
-                        <form class="">
+                        <form class="" method="POST" action="">
                                         <div class="form-group">
                                             <label for="request">Request Pengambilan</label>
                                             <input type="date" class="form-control form-control-user"
@@ -173,10 +136,9 @@
                                             <label for="staffname">Nama Petugas</label>
                                             <select class="form-control" name="staffname" id="staffname">
                                                 <option value="">Pilih Petugas</option>
-                                                <option value="petugas">petugas</option>
-                                                <option value="petugas">petugas</option>
-                                                <option value="petugas">petugas</option>
-                                                <option value="petugas">petugas</option>
+                                                <?php foreach( $petugas as $petugas ):?>
+                                                <option value="<?= $petugas['id'] ?>"><?= $petugas['name'];?></option>
+                                                <?php endforeach;?>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -189,7 +151,7 @@
                                                 <option value="limbah">Limbah B3</option>
                                             </select>
                                         </div>
-                                        <button class="btn btn-success btn-md">Request Angkut</button>
+                                        <button class="btn btn-success btn-md" id="btn_request">Request Angkut</button>
                                     </form>
                         </div>
                     </div>

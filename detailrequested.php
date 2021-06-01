@@ -1,3 +1,30 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['customer'])){
+    header('Location: login.php');
+    exit;
+}
+
+require 'function.php';
+
+// Ambil Data Dari ID URL
+$iddetail = $_GET['id'];
+
+// Ambil Seluruh Data Dari Table
+$detail = query("SELECT * FROM pickup_process WHERE id = '$iddetail' ");
+
+// ngambil id petugas
+$detailpetugas = $detail['id_petugas'];
+
+// ngambil nama petugas
+$petugas = query("SELECT name FROM users WHERE id = '$detailpetugas' ");
+
+// var_dump($detail);
+// var_dump($petugas);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,88 +55,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-trash"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Trash Me</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Proses Request
-            </div>
-
-            <!-- Nav Item - Pages Anjay Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-fw fa-file-invoice"></i>
-                    <span>Menu Request</span>
-                </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="request.php">Request Angkut</a>
-                        <a class="collapse-item" href="requested.php">Yang Direquest</a>
-                    </div>
-                </div>
-            </li>
-            
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Tagihan Bulanan
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-wallet"></i>
-                    <span>Menu Pembayaran</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="payment.php">Bayar Tagihan Bulanan</a>
-                        <a class="collapse-item" href="paylog.php">Cetak Bukti Pembayaran</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Nav Item - Logout -->
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">
-                <i class="fas fa-sign-out-alt fa-fw"></i>
-                    <span>Logout</span></a>
-            </li>
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        <?php include 'sidebar.php'; ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -163,31 +109,25 @@
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-4">
-                        <form class="">
-                                        <div class="form-group">
-                                            <label for="request">Request Pengambilan</label>
-                                            <input type="date" class="form-control form-control-user"
-                                                id="request" name="request" value="Besok" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="staffname">Nama Petugas</label>
-                                            <select class="form-control" name="staffname" id="staffname"
-                                            readonly>
-                                                <option value="petugas">petugas</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tipesampah">Tipe Sampah</label>
-                                            <select class="form-control" name="tipesampah" id="tipesampah" readonly>
-                                                <option value="logam">Logam</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <img src="." alt="fotopetugas">
-                                        </div>
-                                        <a href="requested.php" class="btn btn-success btn-md">Kembali</a>
-                                        <a href="complain.php" class="btn btn-danger btn-md">Ajukan Komplain</a>
-                                    </form>
+                            <div class="form-group">
+                                <label for="request">Request Pengambilan</label>
+                                <input type="text" class="form-control form-control-user"
+                                    id="request" name="request" value="<?= date('d-m-Y', strtotime($detail['pickup_date_req']));?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="staffname">Nama Petugas</label>
+                                <input type="text" class="form-control form-control-user"
+                                    id="staffname" name="staffname" value="<?= $petugas['name'];?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipesampah">Tipe Sampah</label>
+                                <input type="text" class="form-control form-control-user" name="tipesampah" id="tipesampah" readonly value="<?= $detail['tipe_sampah'];?>">
+                            </div>
+                            <a href="requested.php" class="btn btn-success btn-md">Kembali</a>
+
+                            <?php if($detail['status'] == 'success'): ?>
+                            <a href="complain.php?id=<?= $detail['id'];?>" class="btn btn-danger btn-md">Ajukan Komplain</a>
+                            <?php endif;?>
                         </div>
                     </div>
 

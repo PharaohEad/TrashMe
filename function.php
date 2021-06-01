@@ -40,3 +40,44 @@ function registeruser($data){
 
 }
 
+function petugas($data){
+    global $conn;
+
+    $result = mysqli_query($conn, $data);
+
+    $rows = [];
+
+    while ( $row = mysqli_fetch_assoc($result)){
+        $rows[]=$row;
+    }
+    return $rows;
+
+}
+
+function query($data){
+    global $conn;
+
+    $result = mysqli_query($conn, $data);
+
+    // $rows = [];
+
+    while ( $row = mysqli_fetch_assoc($result)){
+        return $row;
+    }
+    // return $rows;
+
+}
+
+function request($data){
+    global $conn;
+
+    $result = mysqli_query($conn, $data);
+
+    $rows = [];
+
+    while ( $row = mysqli_fetch_assoc($result)){
+        $rows[]=$row;
+    }
+    return $rows;
+
+}

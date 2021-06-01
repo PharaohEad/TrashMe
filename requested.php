@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['customer'])){
+    header('Location: login.php');
+    exit;
+}
+
+require 'function.php';
+
+$iduser = $_SESSION['customer']['id'];
+
+$requested = request("SELECT * FROM pickup_process WHERE id_users ='$iduser' ");
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,88 +45,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-trash"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Trash Me</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Proses Request
-            </div>
-
-            <!-- Nav Item - Pages Anjay Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <i class="fas fa-fw fa-file-invoice"></i>
-                    <span>Menu Request</span>
-                </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="request.php">Request Angkut</a>
-                        <a class="collapse-item" href="requested.php">Yang Direquest</a>
-                    </div>
-                </div>
-            </li>
-            
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Tagihan Bulanan
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-wallet"></i>
-                    <span>Menu Pembayaran</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="payment.php">Bayar Tagihan Bulanan</a>
-                        <a class="collapse-item" href="paylog.php">Cetak Bukti Pembayaran</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Nav Item - Logout -->
-            <li class="nav-item">
-                <a class="nav-link" href="login.php">
-                <i class="fas fa-sign-out-alt fa-fw"></i>
-                    <span>Logout</span></a>
-            </li>
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
+        <?php include 'sidebar.php'; ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -173,40 +109,24 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Tanggal Request</th>
+                                            <th>Status Request</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailrequested.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailrequested.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailrequested.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailrequested.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
+                                        <?php $i = 1;?>
+                                        <?php foreach($requested as $req): ?>
+                                            <tr>
+                                                <td><?= $i;?></td>
+                                                <td><?= date('d-m-Y', strtotime($req['pickup_date_req'])); ?></td>
+                                                <td><?= $req['status'] ?></td>
+                                                <td>
+                                                    <a href="detailrequested.php?id=<?= $req['id'];?>" class="btn btn-info btn-sm">Detail</a>
+                                                </td>
+                                            </tr>
+                                        <?php $i++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
-                                  
                                 </table>
                             </div>
                         </div>

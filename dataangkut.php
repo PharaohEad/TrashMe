@@ -1,3 +1,10 @@
+<?php
+session_start();
+require 'function.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +88,7 @@
 
                     <!-- Page Heading -->
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Sejarah Pembayaran</h1>
+                    <h1 class="h3 mb-2 text-gray-800">List Pekerjaan Hari Ini</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -91,37 +98,21 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Tanggal Bayar</th>
+                                            <th>Nama</th>
+                                            <th>Tanggal Angkut</th>
+                                            <th>Alamat</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td>Desember</td>
+                                            <td>Bpk. Sanusi </td>
+                                            <td>Januari </td>
+                                            <td>Jalan jalan </td>
                                             <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
+                                                <button class="btn btn-success rounded btn-sm" >Check</button>
+                                                <button class="btn btn-danger rounded btn-sm" >X</button>
                                             </td>
                                         </tr>
                                     </tbody>
