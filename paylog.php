@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['customer'])){
+    header('Location: login.php');
+    exit;
+}
+
+$namauser = $_SESSION['customer']['name'];
+$iduser = $_SESSION['customer']['id'];
+require 'function.php';
+
+$daftarbill = request("SELECT * FROM monthly_bill WHERE id_users = '$iduser' ");
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,36 +113,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($daftarbill as $db) : ?>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Desember</td>
+                                            <td><?= $i; ?></td>
+                                            <td><?= date("F-Y", strtotime($db['date'])); ?></td>
                                             <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
+                                                <a href="detailpayment.php?id=<?= $db['id']?>" class="btn btn-info btn-sm">Detail</a>
                                             </td>
                                         </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                        <td>1</td>
-                                            <td>Asal-asalan</td>
-                                            <td>
-                                                <a href="detailpayment.php" class="btn btn-info btn-sm">Detail</a>
-                                            </td>
-                                        </tr>
+                                        <?php $i++; ?>
+                                        <?php endforeach; ?>
                                     </tbody>
-                                  
                                 </table>
                             </div>
                         </div>

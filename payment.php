@@ -1,3 +1,42 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['customer'])){
+    header('Location: login.php');
+    exit;
+}
+
+$namauser = $_SESSION['customer']['name'];
+$iduser = $_SESSION['customer']['id'];
+require 'function.php';
+
+
+// Data Tagihan User
+$cek = payment("SELECT * FROM monthly_bill WHERE id_users = '$iduser' ");
+
+if (isset($_POST['btn_bayar'])) {
+    $bulanke = date("Y-m-d", strtotime($_POST['month']));
+    $name = $_POST['name'];
+    $tagihan = $_POST['tagihan'];
+    
+    $ambilbulanpost = date("Y-m", strtotime($_POST['month']));
+    $ambilbulansekarang = date("Y-m");
+
+    if ($ambilbulansekarang == $ambilbulanpost) {
+        echo "<script>alert('Anda Sudah Melakukan Pembayaran Bulanan');</script>";
+        echo "<script>location='paylog.php';</script>";
+    } else {
+        mysqli_query($conn, "INSERT INTO monthly_bill VALUE ('','$iduser','$tagihan','$bulanke') ");
+        echo "<script>alert('Berhasil Melakukan Pembayaran Bulanan');</script>";
+        echo "<script>location='paylog.php';</script>";
+    }
+
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,22 +121,22 @@
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-4">
-                        <form class="">
-                                        <div class="form-group">
-                                            <label for="tagihan">Tagihan Bulanan</label>
-                                            <input type="number" class="form-control form-control-user"
-                                                id="tagihan" name="tagihan" value="150000" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Nama Anda</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="sumanto" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="month">Bulan ke-</label>
-                                            <input type="text" class="form-control" id="month" name="month" value="Desember" readonly>
-                                        </div>
-                                        <button class="btn btn-success btn-md">Bayar</button>
-                                    </form>
+                        <form class="" method="POST" action="">
+                            <div class="form-group">
+                                <label for="tagihan">Tagihan Bulanan</label>
+                                <input type="number" class="form-control form-control-user"
+                                    id="tagihan" name="tagihan" value="150000" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Nama Anda</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<?= $namauser; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="month">Bulan ke-</label>
+                                <input type="text" class="form-control" id="month" name="month" value="<?= date("F-Y") ?>" readonly>
+                            </div>
+                            <button name="btn_bayar" id="btn_bayar" class="btn btn-success btn-md">Bayar</button>
+                        </form>
                         </div>
                     </div>
 

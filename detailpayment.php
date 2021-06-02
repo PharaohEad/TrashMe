@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['customer'])){
+    header('Location: login.php');
+    exit;
+}
+
+$namauser = $_SESSION['customer']['name'];
+$iduser = $_SESSION['customer']['id'];
+$id = $_GET['id'];
+require 'function.php';
+
+$daftarbill = query("SELECT * FROM monthly_bill WHERE id = '$id' ");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +36,38 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+    @media print {
+
+        *{
+            margin-top: 10px;
+        }
+        .navbar-nav {
+            display: none;
+        }
+
+        .btn {
+            display: none;
+        }
+
+        footer {
+            display: none;
+        }
+
+        #new{
+            display: inline !important;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 50px !important;
+        }
+
+
+    }
+    
+    
+    </style>
 
 </head>
 
@@ -78,29 +127,30 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="row">
                         <div class="col-lg-4">
-                        <form class="">
-                                        <div class="form-group">
-                                            <label for="tagihan">Tagihan Bulanan</label>
-                                            <input type="number" class="form-control form-control-user"
-                                                id="tagihan" name="tagihan" value="150000" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Nama Anda</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="sumanto" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="month">Bulan ke-</label>
-                                            <input type="text" class="form-control" id="month" name="month" value="Desember" readonly>
-                                        </div>
-                                        <button class="btn btn-success btn-md">Cetak</button>
-                                        <a href="paylog.php" class="btn btn-info btn-md">Kembali</a>
-                                    </form>
+                        <div class="form-group">
+                            <label for="tagihan">Tagihan Bulanan</label>
+                            <input type="text" class="form-control form-control-user"
+                                id="tagihan" name="tagihan" value="Rp. <?= number_format($daftarbill['payment']); ?>" readonly>
                         </div>
+                        <div class="form-group">
+                            <label for="name">Nama Anda</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<?= $namauser; ?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="month">Bulan ke-</label>
+                            <input type="text" class="form-control" id="month" name="month" value="<?= date('F-Y', strtotime($daftarbill['date']))?>" readonly>
+                        </div>
+                        <button class="btn btn-success btn-md" onclick="print()">Cetak</button>
+                        <a href="paylog.php" class="btn btn-info btn-md">Kembali</a>
+                        </div>
+
                     </div>
+                        <div id="new" style="display: none;">
+                            <p>Terima Kasih</p>
+                        </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -158,6 +208,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+<script>
+function print{
+    window.print();
+}
+</script>
 
 </body>
 

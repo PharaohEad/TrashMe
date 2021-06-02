@@ -19,6 +19,8 @@ if(isset($_POST['request'])){
 
     $date_request = date('m-Y', strtotime($_POST['request']));
     $bill = date('m-Y', strtotime($hasil['date']));
+    
+    //$unpaid = date('m-Y', strtotime($hasil, "-1 months"));
 
     if($iduser != $hasil['id_users']){
         echo "<script>alert('Silahkan Lakukan Pembayaran');</script>";
