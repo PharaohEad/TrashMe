@@ -1,3 +1,25 @@
+<?php
+session_start();
+require 'function.php';
+
+
+require 'vendor/phpmailer/vendor/phpmailer/PHPMailer/src/Exception.php';
+require 'vendor/phpmailer/vendor/phpmailer/PHPMailer/src/PHPMailer.php';
+require 'vendor/phpmailer/vendor/phpmailer/PHPMailer/src/SMTP.php';
+
+if (isset($_POST['forgot'])) {
+
+    if (forgotpassword($_POST) > 0) {
+        echo "<script> alert('Password Sudah Dikirim Email'); </script>";
+        echo "<script>location='login.php';</script>";
+    } else {
+        echo mysqli_error($conn);
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,15 +62,15 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Lupa Password</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="email" name="email"
                                                 placeholder="Masukkan alamat E-mail Anda">
                                         </div>
-                                        <a href="#" class="btn btn-success btn-user btn-block">
+                                        <button type="submit" class="btn btn-success btn-user btn-block" name="forgot" id="forgot">
                                             Submit
-                                        </a>
+                                        </button>
                                         <hr>
                                     </form>
                                     <hr>

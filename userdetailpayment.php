@@ -2,6 +2,8 @@
 session_start();
 require 'function.php';
 
+$datapembayar = query2("SELECT *, u.name FROM monthly_bill mb JOIN users u ON mb.id_users = u.id ORDER BY mb.date ASC");
+
 ?>
 
 
@@ -44,68 +46,48 @@ require 'function.php';
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
+                 <!-- Topbar -->
+                 <?php include 'topbar.php'?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <div class="row">
-                        <div class="col-lg-4">
-                        <form class="">
-                                        <div class="form-group">
-                                            <label for="tagihan">Tagihan Bulanan</label>
-                                            <input type="number" class="form-control form-control-user"
-                                                id="tagihan" name="tagihan" value="150000" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Nama Anda</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="sumanto" readonly>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="month">Bulan ke-</label>
-                                            <input type="text" class="form-control" id="month" name="month" value="Desember" readonly>
-                                        </div>
-                                        <button class="btn btn-success btn-md">Cetak</button>
-                                        <a href="paylog.php" class="btn btn-info btn-md">Kembali</a>
-                                    </form>
+                    <h1 class="h3 mb-2 text-gray-800">List Log Pembayaran User</h1>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nama</th>
+                                            <th>Tanggal Dibayar</th>
+                                            <th>Keterangan Pembayaran</th>
+                                            <th>Jumlah Yang Dibayarkan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $i=1; ?>
+                                    <?php foreach( $datapembayar as $data ):?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= $data['name']; ?> </td>
+                                            <td><?= date("d-F-Y", strtotime($data['date'])); ?></td>
+                                            <td>Sudah Dibayar </td>
+                                            <td>
+                                                Rp. <?= number_format($data['payment']); ?>
+                                                <!-- <a href="userdetailpayment.php?id=<?= $data['id'];?>" class="btn btn-info btn-sm">Detail</a> -->
+                                            </td>
+                                        </tr>
+                                    <?php $i++?>
+                                    <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 

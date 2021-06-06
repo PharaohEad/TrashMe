@@ -34,10 +34,6 @@ if(isset($_POST['btn_login'])){
     $error = true;
 
 }
-
-
-
-
 ?>
 
 

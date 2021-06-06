@@ -1,5 +1,5 @@
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -96,6 +96,36 @@
                 </div>
             </li>
 
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Pickup
+            </div>
+
+            <!-- Nav Item - Komplain Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="userpickup.php">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Data Pickup Customer</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Petugas
+            </div>
+
+            <!-- Nav Item - Petugas Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="datapetugas.php">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Data Petugas</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -106,7 +136,7 @@
 
             <!-- Nav Item - Komplain Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="usercomplain.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Data Komplain Pengguna</span></a>
             </li>

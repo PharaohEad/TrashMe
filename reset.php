@@ -1,3 +1,20 @@
+<?php
+session_start();
+require 'function.php';
+
+if (isset($_POST['reset'])) {
+
+    if (resetpassword($_POST) > 0) {
+        echo "<script> alert('Password Sudah Di Reset'); </script>";
+        echo "<script>location='login.php';</script>";
+    } else {
+        echo mysqli_error($conn);
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,37 +57,32 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Buat Password Baru Anda</h1>
                                     </div>
-                                    <form class="user">
-                                    
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control form-control-user"
-                                                    id="password1" name="password1" 
-                                                    placeholder="Masukan Password Anda">
-                                                    </div>
-                                                
-                                                
-                                                    <div class="form-group">
-                                                    <input type="password" class="form-control form-control-user"
-                                                    id="password2" name="password2" 
-                                                    placeholder="Masukan Ulang Password Anda">
-                                                </div>
-                                            
-                                        <a href="#" class="btn btn-success btn-user btn-block">
+                                    <div class="text-center">
+                                        <h4 class="text-gray-900 mb-4 mt-3"><?= $_GET['email']; ?></h4>
+                                    </div>
+                                    <form class="user" method="POST" action="">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                        id="password1" name="password1" 
+                                        placeholder="Masukan Password Anda">
+                                        </div>
+                                        <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                        id="password2" name="password2" 
+                                        placeholder="Masukan Ulang Password Anda">
+                                        </div>
+                                        <button type="submit" class="btn btn-success btn-user btn-block" name="reset" id="reset">
                                             Submit
-                                        </a>
+                                        </button>
                                         <hr>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->

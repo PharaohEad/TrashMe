@@ -5,13 +5,9 @@ if(!isset($_SESSION['customer'])){
     header('Location: login.php');
     exit;
 }
-
-$namauser= $_SESSION['customer']['name'];
 require 'function.php';
 
-
-
-
+$roleuser = $_SESSION['customer']['role_id'];
 ?>
 
 
@@ -52,52 +48,77 @@ require 'function.php';
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $namauser;?></span>
-                                <img class="img-profile rounded-circle"
-                                    src="<?= $_SESSION['customer']['profile_pict']; ?>">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profile.php?id=<?= $_SESSION['customer']['id']; ?>">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
+              <?php include 'topbar.php'; ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">
-                    <?= $_SESSION['customer']['name'];?>
-                    </h1>
+                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                        <img src="img/Logo_Organik.png" alt="SampahOrganik" class="img-thumbnail">
+                        <button class="my-3 my-2 btn btn-sm btn-info rounded" style="color: #fff; font-weight: bold; font-size: 18px;" id="btn_sampah_organik" onclick="sampah_organik()">Sampah Organik</button>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <img src="img/Logo_Anorganik.png" alt="SampahAnOrganik" class="img-thumbnail">
+                            <button class="my-3 my-2 btn btn-sm btn-info rounded" style="color: #fff; font-weight: bold; font-size: 18px;" id="btn_sampah_anorganik" onclick="sampah_anorganik()">Sampah An Organik</button>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <img src="img/Logo_LimbahB3.png" alt="SampahLimbahB3" class="img-thumbnail">
+                            <button class="my-3 my-2 btn btn-sm btn-info rounded" style="color: #fff; font-weight: bold; font-size: 18px;" id="btn_sampah_limbahb3" onclick="sampah_limbahb3()">Sampah Limbah B3</button>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <img src="img/Logo_Metal.png" alt="SampahMetal" class="img-thumbnail">
+                            <button class="my-3 my-2 btn btn-sm btn-info rounded" style="color: #fff; font-weight: bold; font-size: 18px;" id="btn_sampah_metal" onclick="sampah_metal()">Sampah Metal</button>
+                        </div>
+                    </div>
+
+                    <!-- Detail Sampahnya -->
+                    <hr>
+                    <div class="row collapse" id="sampah_organik_detail">
+                        <div class="col">
+                            <h3 class="mt-3 text-gray-800">Sampah Organik</h3>
+                            <p>Ini Sampah Organik</p>
+                           <?php if($roleuser == "3"):?>
+                            <a href="request.php" class="btn btn-success">Request Angkut</a>
+                           <?php endif;?>
+                        </div>
+                    </div>
+
+                    <div class="row collapse" id="sampah_anorganik_detail">
+                        <div class="col">
+                            <h3 class="mt-3 text-gray-800">Sampah AnOrganik</h3>
+                            <p>Ini Sampah AnOrganik</p>
+                            <?php if($roleuser == "3"):?>
+                            <a href="request.php" class="btn btn-success">Request Angkut</a>
+                           <?php endif;?>
+                        </div>
+                    </div>
+
+                    <div class="row collapse" id="sampah_limbahb3_detail">
+                        <div class="col">
+                            <h3 class="mt-3 text-gray-800">Sampah Limbah B3</h3>
+                            <p>Ini Sampah Limbah B3</p>
+                            <?php if($roleuser == "3"):?>
+                            <a href="request.php" class="btn btn-success">Request Angkut</a>
+                           <?php endif;?>
+                        </div>
+                    </div>
+
+                    <div class="row collapse" id="sampah_metal_detail">
+                        <div class="col">
+                            <h3 class="mt-3 text-gray-800">Sampah Metal</h3>
+                            <p>Ini Sampah Metal</p>
+                            <?php if($roleuser == "3"):?>
+                            <a href="request.php" class="btn btn-success">Request Angkut</a>
+                           <?php endif;?>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -155,6 +176,35 @@ require 'function.php';
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script>
+        function sampah_organik() {
+            $("#sampah_organik_detail").collapse('toggle');
+            $("#sampah_anorganik_detail").collapse('hide');
+            $("#sampah_limbahb3_detail").collapse('hide');
+            $("#sampah_metal_detail").collapse('hide');
+        }
+
+        function sampah_anorganik() {
+            $("#sampah_organik_detail").collapse('hide');
+            $("#sampah_anorganik_detail").collapse('toggle');
+            $("#sampah_limbahb3_detail").collapse('hide');
+            $("#sampah_metal_detail").collapse('hide');
+        }
+
+        function sampah_limbahb3() {
+            $("#sampah_organik_detail").collapse('hide');
+            $("#sampah_anorganik_detail").collapse('hide');
+            $("#sampah_limbahb3_detail").collapse('toggle');
+            $("#sampah_metal_detail").collapse('hide');
+        }
+
+        function sampah_metal() {
+            $("#sampah_organik_detail").collapse('hide');
+            $("#sampah_anorganik_detail").collapse('hide');
+            $("#sampah_limbahb3_detail").collapse('hide');
+            $("#sampah_metal_detail").collapse('toggle');
+        }
+    </script>
 
 </body>
 
