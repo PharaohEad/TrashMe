@@ -83,7 +83,29 @@ $roleuser = $_SESSION['customer']['role_id'];
                     <div class="row collapse" id="sampah_organik_detail">
                         <div class="col">
                             <h3 class="mt-3 text-gray-800">Sampah Organik</h3>
-                            <p>Ini Sampah Organik</p>
+                            <p>Sampah organik adalah sampah yang bisa mengalami pelapukan (dekomposisi) dan terurai 
+                            menjadi bahan yang lebih kecil dan tidak berbau (sering disebut dengan kompos). Kompos 
+                            merupakan hasil pelapukan bahan-bahan organik seperti daun-daunan, jerami, alang-alang, 
+                            sampah, rumput, dan bahan lain.
+                            </p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th> Sampah Organik Kering</th>
+                                    <th> Sampah Organik Basah</th>
+                                </tr>
+                                <tr>
+                                    <td> Kertas</td>
+                                    <td> Kulit Buah</td>
+                                </tr>
+                                <tr>
+                                    <td> Kayu</td>
+                                    <td> Sisa Sayuran</td>
+                                </tr>
+                                <tr>
+                                    <td> Ranting Pohon</td>
+                                    <td> Sampah Daun</td>
+                                </tr>
+                            </table>
                            <?php if($roleuser == "3"):?>
                             <a href="request.php" class="btn btn-success">Request Angkut</a>
                            <?php endif;?>
@@ -92,8 +114,29 @@ $roleuser = $_SESSION['customer']['role_id'];
 
                     <div class="row collapse" id="sampah_anorganik_detail">
                         <div class="col">
-                            <h3 class="mt-3 text-gray-800">Sampah AnOrganik</h3>
-                            <p>Ini Sampah AnOrganik</p>
+                            <h3 class="mt-3 text-gray-800">Sampah Anorganik</h3>
+                            <p>Sampah anorganik merupakan limbah yang dihasilkan dari bahan-bahan yang bukan berasal dari 
+                            alam (bahan hayati), melainkan bahan-bahan buatan manusia atau bahan sintetik (sampah non
+                            alami)
+                            </p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th> Sampah Anorganik Lunak</th>
+                                    <th> Sampah Anorganik Keras</th>
+                                </tr>
+                                <tr>
+                                    <td> Plastik</td>
+                                    <td> Ban Bekas</td>
+                                </tr>
+                                <tr>
+                                    <td> Sterefoam</td>
+                                    <td> Batu Bata</td>
+                                </tr>
+                                <tr>
+                                    <td> Baju</td>
+                                    <td> Pecahan Kaca</td>
+                                </tr>
+                            </table>
                             <?php if($roleuser == "3"):?>
                             <a href="request.php" class="btn btn-success">Request Angkut</a>
                            <?php endif;?>
@@ -103,7 +146,29 @@ $roleuser = $_SESSION['customer']['role_id'];
                     <div class="row collapse" id="sampah_limbahb3_detail">
                         <div class="col">
                             <h3 class="mt-3 text-gray-800">Sampah Limbah B3</h3>
-                            <p>Ini Sampah Limbah B3</p>
+                            <p>pengertian limbah B3 dapat diartikan sebagai suatu buangan atau limbah yang sifat dan
+                            konsentrasinya mengandung zat yang beracun dan berbahaya sehingga secara langsung
+                            maupun tidak langsung dapat merusak lingkungan, mengganggu kesehatan, dan mengancam 
+                            kelangsungan hidup manusia serta organisme lainya.
+                            </p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td> Aki Bekas</td>
+                                    <td> Oli</td>
+                                </tr>
+                                <tr>
+                                    <td> Limbah Deterjen</td>
+                                    <td> Baterai</td>
+                                </tr>
+                                <tr>
+                                    <td> Obat-Obatan</td>
+                                    <td> Narkoba</td>
+                                </tr>
+                                <tr>
+                                    <td> Cat</td>
+                                    <td> Pasir Semen</td>
+                                </tr>
+                            </table>
                             <?php if($roleuser == "3"):?>
                             <a href="request.php" class="btn btn-success">Request Angkut</a>
                            <?php endif;?>
@@ -113,7 +178,27 @@ $roleuser = $_SESSION['customer']['role_id'];
                     <div class="row collapse" id="sampah_metal_detail">
                         <div class="col">
                             <h3 class="mt-3 text-gray-800">Sampah Metal</h3>
-                            <p>Ini Sampah Metal</p>
+                            <p>Sampah metal merupakan barang yang dihasilkan dari bahan-bahan yang berasal dari 
+                            bahan padat.
+                            </p>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td> Kaleng</td>
+                                    <td> Wajan</td>
+                                </tr>
+                                <tr>
+                                    <td> Tembaga</td>
+                                    <td> Ember Besi</td>
+                                </tr>
+                                <tr>
+                                    <td> Perkakas Besi</td>
+                                    <td> Botol Alumunium</td>
+                                </tr>
+                                <tr>
+                                    <td> Kabel Fiber</td>
+                                    <td> Pisau</td>
+                                </tr>
+                            </table>
                             <?php if($roleuser == "3"):?>
                             <a href="request.php" class="btn btn-success">Request Angkut</a>
                            <?php endif;?>
@@ -147,25 +232,9 @@ $roleuser = $_SESSION['customer']['role_id'];
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
+<!-- Logout Modal -->
+<?php include 'logoutmodal.php';?>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
