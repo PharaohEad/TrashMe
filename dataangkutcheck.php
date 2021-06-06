@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'function.php';
+date_default_timezone_set('Asia/Jakarta');
 
 $idangkut = $_GET['id'];
 

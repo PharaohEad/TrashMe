@@ -1,5 +1,6 @@
 <?php
 session_start();
+date_default_timezone_set('Asia/Jakarta');
 
 if(!isset($_SESSION['customer'])){
     header('Location: login.php');
@@ -12,7 +13,7 @@ require 'function.php';
 
 
 // Data Tagihan User
-$cek = payment("SELECT * FROM monthly_bill WHERE id_users = '$iduser' ");
+$cek = query("SELECT * FROM monthly_bill WHERE id_users = '$iduser' ORDER BY date DESC limit 1 ");
 
 if (isset($_POST['btn_bayar'])) {
     
@@ -24,15 +25,27 @@ if (isset($_POST['btn_bayar'])) {
     $ambilbulanpost = date("Y-m", strtotime($_POST['month']));
     $ambilbulansekarang = date("Y-m");
 
-    if (!$cek) {
+    $datedb = date('Y-m', strtotime($cek['date']));
+
+    if($ambilbulansekarang == $datedb){
+        echo "<script>alert('Anda Sudah Melakukan Pembayaran Bulanan');</script>";
+        echo "<script>location='paylog.php';</script>";
+    }else {
         mysqli_query($conn, "INSERT INTO monthly_bill VALUE ('','$iduser','$tagihan','$bulanke') ");
         echo "<script>alert('Berhasil Melakukan Pembayaran Bulanan');</script>";
         echo "<script>location='paylog.php';</script>";
-    } elseif ($ambilbulansekarang == $ambilbulanpost) {
-        echo "<script>alert('Anda Sudah Melakukan Pembayaran Bulanan');</script>";
-        echo "<script>location='paylog.php';</script>";
     }
 
+    // if ($cek) {
+    //     if ($ambilbulansekarang == $cek['date']) {
+    //         echo "<script>alert('Anda Sudah Melakukan Pembayaran Bulanan');</script>";
+    //         echo "<script>location='paylog.php';</script>";
+    //     }else {
+    //         mysqli_query($conn, "INSERT INTO monthly_bill VALUE ('','$iduser','$tagihan','$bulanke') ");
+    //         echo "<script>alert('Berhasil Melakukan Pembayaran Bulanan');</script>";
+    //         echo "<script>location='paylog.php';</script>";
+    //     }
+    // }
 }
 
 
@@ -100,7 +113,7 @@ if (isset($_POST['btn_bayar'])) {
                             </div>
                             <div class="form-group">
                                 <label for="month">Bulan ke-</label>
-                                <input type="text" class="form-control" id="month" name="month" value="<?= date("F-Y") ?>" readonly>
+                                <input type="text" class="form-control" id="month" name="month" value="<?= date("Y-m-d") ?>" readonly>
                             </div>
                             <button name="btn_bayar" id="btn_bayar" class="btn btn-success btn-md">Bayar</button>
                         </form>

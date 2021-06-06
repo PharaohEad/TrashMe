@@ -2,7 +2,10 @@
 session_start();
 require 'function.php';
 
-$datakomplain = query2("SELECT c.accident_date, c.id,c.complains, u.name FROM complains c JOIN users u ON c.id_users = u.id")[0];
+$getid = $_GET['id'];
+
+$datakomplain = query2("SELECT c.accident_date, c.id,c.complains, u.name FROM complains c JOIN users u ON c.id_users = u.id WHERE c.id= '$getid' ")[0];
+
 
 ?>
 

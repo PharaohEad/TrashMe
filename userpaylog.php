@@ -12,9 +12,10 @@ if (isset($_POST['cetak'])) {
     $date1 = $_POST['date1'];
     $date2 = $_POST['date2'];
 
+
     if ($date1 and $date2 != '') {
         $datapembayaran = query2("SELECT * FROM monthly_bill mb JOIN users u ON mb.id_users = u.id WHERE mb.date BETWEEN '$date1' AND '$date2' ");
-
+        
 
         $html = '<!DOCTYPE html>
     <html lang="en">

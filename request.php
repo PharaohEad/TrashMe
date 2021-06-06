@@ -15,7 +15,7 @@ if(isset($_POST['request'])){
     // Cek Apakah User Sudah Membayar Bulanan
     $iduser = $_SESSION['customer']['id'];
 
-    $hasil = query("SELECT * FROM monthly_bill WHERE id_users = '$iduser' ");
+    $hasil = query("SELECT * FROM monthly_bill WHERE id_users = '$iduser' ORDER BY date DESC LIMIT 1");
 
     $date_request = date('m-Y', strtotime($_POST['request']));
     $bill = date('m-Y', strtotime($hasil['date']));

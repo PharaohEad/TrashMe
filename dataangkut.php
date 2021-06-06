@@ -1,10 +1,11 @@
 <?php
 session_start();
 require 'function.php';
+date_default_timezone_set('Asia/Jakarta');
 
 $idpetugas = $_SESSION['customer']['id'];
 
-$dataangkut = query2("SELECT u.name,u.address,u.phone_num, pp.* FROM pickup_process pp JOIN users u ON pp.id_users = u.id WHERE status = 'requested'");
+$dataangkut = query2("SELECT u.name,u.address,u.phone_num, pp.* FROM pickup_process pp JOIN users u ON pp.id_users = u.id WHERE status = 'requested' AND pp.id_petugas = '$idpetugas'");
 
 ?>
 
